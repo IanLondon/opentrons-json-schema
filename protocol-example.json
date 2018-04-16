@@ -1,0 +1,157 @@
+{
+  "protocol-schema": "1.0.0",
+
+  "metadata": {
+    "protocol-name": "Example Protocol",
+    "author": "Ian",
+    "description": "An example of how JSON protocols will look. Does a multi-dispense then delays 1.5sec before dropping tip.",
+    "created": 1519916981999,
+    "last-modified": 1519917009476,
+    "category": "basic pipetting",
+    "subcategory": "sample prep",
+    "tags": ["simple", "example"]
+  },
+
+  "designer-application": {
+    "application-name": "opentrons/protocol-designer",
+    "application-version": "1.0.0",
+    "data": {
+      "blah": "arbitrary stuff"
+    }
+  },
+
+  "robot": {
+    "model": "OT-2 Standard"
+  },
+
+  "pipettes": {
+    "pipette1Id": {
+      "mount": "right",
+      "model": "p300_single_v1"
+    }
+  },
+
+  "labware": {
+    "tiprack1Id": {
+      "slot": "7",
+      "model": "tiprack-200uL",
+      "display-name": "Tip rack"
+    },
+    "sourcePlateId": {
+      "slot": "10",
+      "model": "trough-12row",
+      "display-name": "Source (Buffer)"
+    },
+    "destPlateId": {
+      "slot": "11",
+      "model": "96-flat",
+      "name": "Destination Plate"
+    },
+    "trashId": {
+      "slot": "12",
+      "model": "fixed-trash",
+      "name": "Trash"
+    }
+  },
+
+  "procedure": [
+    {
+      "annotation": {
+        "name": "Distribute 1",
+        "description": "Distribute source well to destination wells"
+      },
+      "subprocedure": [
+        {
+          "command": "pick-up-tip",
+          "params": {
+            "pipette": "pipette1Id",
+            "labware": "tiprack1Id",
+            "well": "A1"
+          }
+        },
+        {
+          "command": "aspirate",
+          "params": {
+            "pipette": "pipette1Id",
+            "volume": 200,
+            "labware": "sourcePlateId",
+            "well": "A1",
+            "position": {
+              "anchor": "bottom",
+              "offset": {
+                "x": 10,
+                "y": 15.5
+              }
+            }
+          }
+        },
+        {
+          "command": "touch-tip",
+          "params": {
+            "pipette": "pipette1Id",
+            "labware": "sourcePlateId",
+            "well": "A1"
+          }
+        },
+        {
+          "command": "dispense",
+          "params": {
+            "pipette": "pipette1Id",
+            "volume": 50,
+            "labware": "destPlateId",
+            "well": "B1"
+          }
+        },
+        {
+          "command": "dispense",
+          "params": {
+            "pipette": "pipette1Id",
+            "volume": 50,
+            "labware": "destPlateId",
+            "well": "B2"
+          }
+        },
+        {
+          "command": "dispense",
+          "params": {
+            "pipette": "pipette1Id",
+            "volume": 50,
+            "labware": "destPlateId",
+            "well": "B3"
+          }
+        },
+        {
+          "command": "blowout",
+          "params": {
+            "pipette": "pipette1Id",
+            "labware": "trashId",
+            "well": "A1"
+          }
+        }
+      ]
+    },
+    {
+      "annotation": {
+        "name": "Delay then drop tip",
+        "description": ""
+      },
+      "subprocedure": [
+        {
+          "command": "delay",
+          "params": {
+            "wait": 1.5,
+            "message": "hello robot operator, this is an example of the delay command"
+          }
+        },
+        {
+          "command": "drop-tip",
+          "params": {
+            "pipette": "pipette1Id",
+            "labware": "trashId",
+            "well": "A1"
+          }
+        }
+      ]
+    }
+  ]
+}
