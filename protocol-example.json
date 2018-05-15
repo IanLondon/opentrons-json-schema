@@ -45,12 +45,12 @@
     "destPlateId": {
       "slot": "11",
       "model": "96-flat",
-      "name": "Destination Plate"
+      "display-name": "Destination Plate"
     },
     "trashId": {
       "slot": "12",
       "model": "fixed-trash",
-      "name": "Trash"
+      "display-name": "Trash"
     }
   },
 
