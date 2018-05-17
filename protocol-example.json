@@ -34,7 +34,7 @@
   "labware": {
     "tiprack1Id": {
       "slot": "7",
-      "model": "tiprack-200uL",
+      "model": "tiprack-200ul",
       "display-name": "Tip rack"
     },
     "sourcePlateId": {
